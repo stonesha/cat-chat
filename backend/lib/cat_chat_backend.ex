@@ -25,7 +25,7 @@ defmodule CatChatBackend do
     [
       {:_,
        [
-         {"/ws/[...]", CatChatBackend.SocketHandler, []}
+         {"/ws/:lobby", CatChatBackend.SocketHandler, []}
        ]}
     ]
   end

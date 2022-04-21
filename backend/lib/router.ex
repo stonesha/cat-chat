@@ -3,7 +3,7 @@ defmodule CatChatBackend.Router do
 
   plug(Plug.Static,
     at: "/",
-    from: :my_websocket_app
+    from: :cat_chat_backend
   )
 
   plug(:match)
@@ -18,9 +18,5 @@ defmodule CatChatBackend.Router do
 
   get "/" do
     send_resp(conn, 200, "200")
-  end
-
-  match _ do
-    send_resp(conn, 404, "404")
   end
 end

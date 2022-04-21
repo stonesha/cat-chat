@@ -2,7 +2,7 @@ defmodule CatChatBackend.SocketHandler do
   @behaviour :cowboy_websocket
 
   def init(request, _state) do
-    state = %{registry_key: request.path}
+    state = %{registry_key: request.bindings.lobby}
 
     {:cowboy_websocket, request, state}
   end
