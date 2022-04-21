@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback, useReducer } from 'react'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 
-const websocket_url = import.meta.env.VITE_WEBSOCKET_URL;
+const websocket_url = import.meta.env.VITE_WEBSOCKET_URL
 
 function App() {
 
@@ -26,14 +26,14 @@ function App() {
   });
 
   useEffect(() => {
-    if (lastMessage !== null) {
-      setMessages(prevMessages => [...prevMessages, lastMessage.data]);
-    }
-  }, [lastMessage, setMessages]);
+    if (lastMessage !== null) 
+      setMessages(prevMessages => [...prevMessages, lastMessage.data])
+    
+  }, [lastMessage, setMessages])
 
   const onEnter = useCallback((e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
-      e.preventDefault();
+      e.preventDefault()
 
       const value: string = e.currentTarget.value
       if (value) {
