@@ -1,17 +1,23 @@
-import { useEffect, useRef, useState, useCallback, useReducer } from 'react'
+import useStore, { IStore } from '@/lib/store'
+import { useEffect, useRef, useCallback } from 'react'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
-
-const websocket_url = import.meta.env.VITE_WEBSOCKET_URL
+import shallow from 'zustand/shallow'
 
 function App() {
 
   const chatRef = useRef<HTMLTextAreaElement>(null)
   const lobbyRef = useRef<HTMLInputElement>(null)
 
-  const [messages, setMessages] = useState<string[]>([])
-  const [connect, setConnect] = useState<boolean>(false)
-  const [lobby, changeLobby] = useReducer((_: any, lobby: string) => websocket_url + lobby, websocket_url)
+  const { messages, addMessage, connect, setConnect, lobby, setLobby} = useStore((state: IStore) => ({
+    messages: state.messages,
+    addMessage: state.addMessage,
+    connect: state.connect,
+    setConnect: state.setConnect,
+    lobby: state.lobby,
+    setLobby: state.setLobby
+  }), shallow)
 
+  
   const {
     sendMessage,
     lastMessage,
@@ -27,9 +33,9 @@ function App() {
 
   useEffect(() => {
     if (lastMessage !== null) 
-      setMessages(prevMessages => [...prevMessages, lastMessage.data])
+      addMessage(lastMessage.data)
     
-  }, [lastMessage, setMessages])
+  }, [lastMessage, addMessage])
 
   const onEnter = useCallback((e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
@@ -66,13 +72,13 @@ function App() {
           <input ref={lobbyRef} placeholder="Enter a lobby..." className="px-1 py-0.5 rounded-lg"/>
           <button onClick={() => {
             setConnect(true)
-            changeLobby(lobbyRef.current!.value)
+            setLobby(lobbyRef.current!.value)
           }}>Connect</button>
         </div>
       </div>
       <hr />
       <div className="mx-20">
-        {messages.map((message, index) => (
+        {messages.map((message: string, index: number) => (
           <div key={index} className="mb-2">
             <span className="text-slate-400">{message}</span>
           </div> 
