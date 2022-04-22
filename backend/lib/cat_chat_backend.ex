@@ -8,7 +8,7 @@ defmodule CatChatBackend do
         plug: CatChatBackend.Router,
         options: [
           dispatch: dispatch(),
-          port: 4000
+          port: (System.get_env("PORT") || "4000") |> String.to_integer()
         ]
       ),
       Registry.child_spec(
