@@ -1,5 +1,7 @@
 # cat-chat
 
+<img src="./cat-chat.gif" alt="cat chat demo" />
+
 A chat client and server that can handle millions of clients at once with the ability to choose different chat lobbies to connect to
 
 ## Stack
