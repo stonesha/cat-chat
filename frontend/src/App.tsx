@@ -31,7 +31,15 @@ function App() {
     if (lastMessage !== null) addMessage(lastMessage.data);
   }, [lastMessage, addMessage]);
 
-  const onEnter = useCallback(
+  const onLobbyEnter = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key === "Enter") {
+      setConnect(true);
+      setLobby(lobbyRef.current!.value);
+      chatRef.current!.focus();
+    }
+  };
+
+  const onChatEnter = useCallback(
     (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
       if (e.key === "Enter") {
         e.preventDefault();
@@ -70,6 +78,7 @@ function App() {
             ref={lobbyRef}
             placeholder="Enter a lobby..."
             className="px-1 py-0.5 rounded-lg bg-slate-200"
+            onKeyUp={onLobbyEnter}
           />
           <button
             className="rounded-lg px-1 py-0.5 bg-blue-400 text-white"
@@ -95,7 +104,7 @@ function App() {
           placeholder="Enter message here"
           className="bg-slate-200 rounded-lg w-4/6 p-2"
           ref={chatRef}
-          onKeyDown={onEnter}
+          onKeyDown={onChatEnter}
         />
       </div>
     </div>
