@@ -92,9 +92,9 @@ function App() {
         </div>
       </div>
       <hr />
-      <div className="mx-80">
+      <div className="flex flex-col">
         {messages.map((message: string, index: number) => (
-          <div key={index} className="mb-2">
+          <div key={index} className="w-4/6 mx-auto my-1">
             <span className="text-slate-500">{message}</span>
           </div>
         ))}
