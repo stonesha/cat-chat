@@ -83,7 +83,7 @@ function App() {
         </div>
       </div>
       <hr />
-      <div className="mx-20">
+      <div className="mx-80">
         {messages.map((message: string, index: number) => (
           <div key={index} className="mb-2">
             <span className="text-slate-500">{message}</span>
